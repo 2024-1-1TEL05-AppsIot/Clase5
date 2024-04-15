@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Employee implements Serializable {
 
-    private Integer id;
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
@@ -13,14 +13,14 @@ public class Employee implements Serializable {
     private String jobId;
     private Double salary;
     private Object commissionPct;
-    private Integer managerId;
+    private String managerId;
     private Integer departmentId;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,11 +88,11 @@ public class Employee implements Serializable {
         this.commissionPct = commissionPct;
     }
 
-    public Integer getManagerId() {
+    public String getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Integer managerId) {
+    public void setManagerId(String managerId) {
         this.managerId = managerId;
     }
 

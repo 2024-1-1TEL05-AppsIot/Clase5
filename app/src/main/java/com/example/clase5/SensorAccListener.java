@@ -5,7 +5,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
 public class SensorAccListener implements SensorEventListener {
+
+    private static String TAG = "msg-test-SensorAccListener";
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         int sensorType = sensorEvent.sensor.getType();
@@ -15,7 +20,7 @@ public class SensorAccListener implements SensorEventListener {
             float y = sensorEvent.values[1];
             float z = sensorEvent.values[2];
 
-            Log.d("msg-test","x: " + x + " | y: " + y + " | z: " + z);
+            Log.d(TAG,"x: " + x + " | y: " + y + " | z: " + z);
         }
     }
 

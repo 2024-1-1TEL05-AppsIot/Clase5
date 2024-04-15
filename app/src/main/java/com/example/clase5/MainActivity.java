@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         createRetrofitService();
-
     }
 
     @Override
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createRetrofitService() {
         employeeService = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.36:8080")
+                .baseUrl("http://10.0.2.2:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(EmployeeService.class);

@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.clase5.databinding.ActivitySensorBinding;
@@ -44,7 +45,7 @@ public class SensorActivity extends AppCompatActivity {
 
             List<Sensor> sensorList = mSensorManager.getSensorList(Sensor.TYPE_ALL);
             for(Sensor sensor : sensorList){
-                Log.d("msg-test","sensorName: " + sensor.getName());
+                Log.d("msg-test-sensorList","sensorName: " + sensor.getName());
             }
 
         }else{
@@ -52,15 +53,15 @@ public class SensorActivity extends AppCompatActivity {
         }
 
         //location services
-        mostrarUbicacion();
+        mostrarUbicacion(binding.getRoot());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Sensor mAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(listener,mAcc,SensorManager.SENSOR_DELAY_NORMAL);
+        Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(listener,mAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
         //mSensorManager.registerListener(listener,mAcc,20000000);
 
         //Sensor mGyr = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
@@ -74,7 +75,7 @@ public class SensorActivity extends AppCompatActivity {
         mSensorManager.unregisterListener(listener);
     }
 
-    public void mostrarUbicacion() {
+    public void mostrarUbicacion(View view) {
 
         int selfPermissionFineLocation = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
         int selfPermissionCoarseLocation = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -86,8 +87,8 @@ public class SensorActivity extends AppCompatActivity {
             FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(this);
             providerClient.getLastLocation().addOnSuccessListener(this, location -> {
                 if (location != null) {
-                    Log.d("msg-test", "latitud: " + location.getLatitude());
-                    Log.d("msg-test", "longitud: " + location.getLongitude());
+                    Log.d("msg-test-location", "latitud: " + location.getLatitude());
+                    Log.d("msg-test-location", "longitud: " + location.getLongitude());
                 }
             });
 
@@ -108,12 +109,12 @@ public class SensorActivity extends AppCompatActivity {
                 Boolean fineLocationGranted = result.get(android.Manifest.permission.ACCESS_FINE_LOCATION);
                 Boolean coarseLocationGranted = result.get(android.Manifest.permission.ACCESS_COARSE_LOCATION);
                 if (fineLocationGranted != null && fineLocationGranted) {
-                    Log.d("msg", "Permiso de ubicación precisa concedido");
-                    mostrarUbicacion();
+                    Log.d("msg-test-locationPermissionLauncher", "Permiso de ubicación precisa concedido");
+                    mostrarUbicacion(binding.getRoot());
                 } else if (coarseLocationGranted != null && coarseLocationGranted) {
-                    Log.d("msg", "Permiso de ubicación aproximada concedido");
+                    Log.d("msg-test-locationPermissionLauncher", "Permiso de ubicación aproximada concedido");
                 } else {
-                    Log.d("msg", "Ningún permiso concedido");
+                    Log.d("msg-test-locationPermissionLauncher", "Ningún permiso concedido");
                 }
             }
     );

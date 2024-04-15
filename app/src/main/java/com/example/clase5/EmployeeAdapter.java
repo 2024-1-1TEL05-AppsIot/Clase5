@@ -3,6 +3,7 @@ package com.example.clase5;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     private List<Employee> listaEmpleados;
     private Context context;
+
+    private static String TAG = "msg-test-EmployeeViewHolder";
 
     @NonNull
     @Override
@@ -53,21 +56,6 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         return listaEmpleados.size();
     }
 
-    public class EmployeeViewHolder extends RecyclerView.ViewHolder {
-
-        Employee employee;
-
-        public EmployeeViewHolder(@NonNull View itemView) {
-            super(itemView);
-            Button button = itemView.findViewById(R.id.button2);
-            button.setOnClickListener(view -> {
-                Intent intent = new Intent(context,EmployeeDetailActivity.class);
-                context.startActivity(intent);
-            });
-        }
-    }
-
-
     public List<Employee> getListaEmpleados() {
         return listaEmpleados;
     }
@@ -82,5 +70,24 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public class EmployeeViewHolder extends RecyclerView.ViewHolder {
+
+        Employee employee;
+
+        public EmployeeViewHolder(@NonNull View itemView) {
+            super(itemView);
+            Button button = itemView.findViewById(R.id.button2);
+            button.setOnClickListener(view -> {
+                String id = employee.getId();
+                Log.d(TAG, "Presionando el empleado con id: " + id);
+
+                Intent intent = new Intent(context,EmployeeDetailActivity.class);
+                intent.putExtra("employee", employee);
+
+                context.startActivity(intent);
+            });
+        }
     }
 }
